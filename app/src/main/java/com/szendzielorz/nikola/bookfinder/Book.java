@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 public class Book {
 
-    //private String mImageURL;
+    //private String mImageURL; //TODO: create an book image field (url in json).
     private String mTitle;
     private String[] mAuthors;
     private String mDate;
