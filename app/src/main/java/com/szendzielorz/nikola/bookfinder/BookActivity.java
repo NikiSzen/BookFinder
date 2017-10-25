@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class BookActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Book>> {
 
-    private static final String BOOK_REQUEST_URL= "https://www.googleapis.com/books/v1/volumes?q=search+terms";
+    private static final String BOOK_REQUEST_URL= "https://www.googleapis.com/books/v1/volumes?";
 
     private BookArrayAdapter mAdapter;
 
