@@ -23,45 +23,14 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private BookArrayAdapter mAdapter;
 
     // Hard coded search value:
-    String mySearchKeyword ="Android for Work";
+    String mySearchKeyword ="tea";
 
-    /*
-    //Fake authors for test
-    private String[] authors0 = {"Cheese", "Pepperoni"};
-    private String[] authors1 = {"Michael Peterstug", "Nikola Szendzielorz", "Black Olives"};
-    private String[] authors2 = {"Mike Anderson", "Black Holygranade"};
-    private String[] authors3 = {"Cheese Adam"};
-    private String[] authors4 = {"Pepperoni Anna", "Oliver Houston"};
-    private String[] authors5 = {"Cheese", "Pepperoni", "Black Olives","Anna Kowalska"};
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
-/*
-        // Create a fake list of books.
-        ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book("San Francisco",authors0,"2000-12-05"));
-        books.add(new Book("San Francisco",authors1,"2000-12-05"));
-        books.add(new Book("San Francisco",authors2,"2000-12-05"));
-        books.add(new Book("San Francisco",authors3,"2000-12-05"));
-        books.add(new Book("San Francisco",authors4,"2000-12-05"));
-        books.add(new Book("San Francisco",authors1,"2000-12-05"));
-        books.add(new Book("San Francisco",authors5,"2000-12-05"));
 
-        // Find a reference to the {@link ListView} in the layout
-        ListView booksListView = (ListView) findViewById(R.id.list);
-
-        // Create a new {@link ArrayAdapter} of books
-        BookArrayAdapter bookAdapter = new BookArrayAdapter(this, books);
-
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
-        booksListView.setAdapter(bookAdapter);
-*/
-
-        // Network version:
         // Check if there is internet connectivity.
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -81,13 +50,6 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             // so the list can be populated in the user interface
             booksListView.setAdapter(mAdapter);
 
-
-            // Perform a network request and update UI //old version used no loader
-            //new FetchEarthquakeDataTask().execute(USGS_REQUEST_URL);
-
-            // Get a reference to the LoaderManager, in order to interact with loaders. // for other library
-            //LoaderManager loaderManager = getLoaderManager();
-
             //Log.i(LOG_TAG, "Start of initLoader");
             getSupportLoaderManager().initLoader(0, null, this);
 
@@ -99,7 +61,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<ArrayList<Book>> onCreateLoader(int id, Bundle args) {
         //Log.i(LOG_TAG, "onCreateLoader callback");
-        return new BookLoader(BookActivity.this,BOOK_REQUEST_URL);
+        return new BookLoader(BookActivity.this,BOOK_REQUEST_URL, mySearchKeyword);
     }
 
     @Override

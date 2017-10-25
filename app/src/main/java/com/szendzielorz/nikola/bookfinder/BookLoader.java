@@ -12,10 +12,12 @@ import java.util.ArrayList;
 public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
     private String mUrl;
+    private String mSearchKeyword;
 
-    public BookLoader(Context context, String url) {
+    public BookLoader(Context context, String url, String searchKeyword) {
         super(context);
         mUrl = url;
+        mSearchKeyword = searchKeyword;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
         }
 
         // Perform the HTTP request for book data and process the response.
-        ArrayList<Book> bookList = QueryUtils.fetchBookData(mUrl);
+        ArrayList<Book> bookList = QueryUtils.fetchBookData(mUrl,mSearchKeyword);
         return bookList;
     }
 }

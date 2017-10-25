@@ -1,5 +1,6 @@
 package com.szendzielorz.nikola.bookfinder;
 
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -27,15 +28,15 @@ public final class QueryUtils {
 
     // Base URI for the Books API
     //private static final String BOOK_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
-    //private static final String QUERY_PARAM ="q"; //parameter for the search string
-    //private static final String MAX_RESULTS ="maxResults"; //parameter that limits search results
+    private static final String QUERY_PARAM ="q"; //parameter for the search string
+    private static final String MAX_RESULTS ="maxResults"; //parameter that limits search results
     //private static final String PRINT_TYPE ="printType"; //Parameter to filter by print type
 
 
 
     private QueryUtils(){}
 
-    public static ArrayList<Book> fetchBookData(String requestUrl){
+    public static ArrayList<Book> fetchBookData(String requestUrl, String searchKeyword){
 
         // For progress bar testing purposes.
         /*try {
@@ -46,7 +47,7 @@ public final class QueryUtils {
 
         //Log.i(LOG_TAG, "fetchBookData method");
         // Create URL object
-        URL url = createUrl(requestUrl);
+        URL url = createUrl(requestUrl, searchKeyword);
 
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
@@ -66,11 +67,19 @@ public final class QueryUtils {
     /**
      * Returns new URL object from the given string URL.
      */
-    private static URL createUrl(String stringUrl) {
+    private static URL createUrl(String stringUrl, String searchKeyword) {
         URL url = null;
         try {
-            url = new URL(stringUrl);
-        } catch (MalformedURLException e) {
+            //url = new URL(stringUrl);
+            // Build up query URI, limiting results to 15 items
+            Uri buildUri = Uri.parse(stringUrl).buildUpon()
+                    .appendQueryParameter(QUERY_PARAM,searchKeyword)
+                    .appendQueryParameter(MAX_RESULTS,"15")
+                    .build();
+
+            url = new URL(buildUri.toString());
+
+        } catch (Exception e) {
             Log.e(LOG_TAG, "Error with creating URL ", e);
         }
         return url;
@@ -169,8 +178,13 @@ public final class QueryUtils {
                     }
                 }
 
-                String publishedDate = volumeInfo.getString("publishedDate");
-                //TODO: Find also image of book.
+                String publishedDate="";
+                if (volumeInfo.has("publishedDate")) {
+
+                    publishedDate = volumeInfo.getString("publishedDate");
+                    //TODO: Find also image of book.
+
+                }
 
                 Book book = new Book(title,authorNames,publishedDate);
                 books.add(book);

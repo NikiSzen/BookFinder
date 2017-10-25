@@ -29,9 +29,8 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:maxLines="1"
-                android:text="My title"/>
+                android:textSize="18sp"
+                android:maxLines="2"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -41,17 +40,15 @@
                     android:id="@+id/authorsTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:maxLines="4"
-                    android:text="Autor Autor1"/>
+                    android:textSize="12sp"
+                    android:maxLines="4"/>
                 <TextView
                     android:id="@+id/yearTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="14sp"
                     android:maxLines="2"
-                    android:gravity="end"
-                    android:text="1995"/>
+                    android:gravity="end"/>
 
 
             </LinearLayout>
