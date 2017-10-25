@@ -25,6 +25,14 @@ public final class QueryUtils {
     /** Tag for the log messages */
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
+    // Base URI for the Books API
+    //private static final String BOOK_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
+    //private static final String QUERY_PARAM ="q"; //parameter for the search string
+    //private static final String MAX_RESULTS ="maxResults"; //parameter that limits search results
+    //private static final String PRINT_TYPE ="printType"; //Parameter to filter by print type
+
+
+
     private QueryUtils(){}
 
     public static ArrayList<Book> fetchBookData(String requestUrl){
