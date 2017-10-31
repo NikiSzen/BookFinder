@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,8 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final String BOOK_REQUEST_URL= "https://www.googleapis.com/books/v1/volumes?";
 
     private BookArrayAdapter mAdapter;
+    private ProgressBar mLoadingSpinner;
+    private TextView mEmptyListTextView;
 
     // Hard coded search value:
     String mySearchKeyword ="tea";
@@ -39,8 +43,13 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 
+        mLoadingSpinner = (ProgressBar) findViewById(R.id.loading_spinner);
+
         // Find a reference to the {@link ListView} in the layout
         ListView booksListView = (ListView) findViewById(R.id.list);
+        mEmptyListTextView = (TextView) findViewById(R.id.emptyList);
+        booksListView.setEmptyView(mEmptyListTextView);
+
 
         if(isConnected) {
 
@@ -53,6 +62,9 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             //Log.i(LOG_TAG, "Start of initLoader");
             getSupportLoaderManager().initLoader(0, null, this);
 
+        }else{
+            mLoadingSpinner.setVisibility(View.GONE);
+            mEmptyListTextView.setText("No internet connection.");
         }
 
 
@@ -67,7 +79,8 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<ArrayList<Book>> loader, ArrayList<Book> data) {
         //Log.i(LOG_TAG, "onLoadFinished callback");
-        //TODO: Progress bar and empty state.
+        mLoadingSpinner.setVisibility(View.GONE);
+        mEmptyListTextView.setText(R.string.no_books);
         // Clear adapter from all the previous data.
         mAdapter.clear();
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
