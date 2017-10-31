@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">BookFinder</string>
     <string name="no_books">No books found.</string>
+    <string name="keyword_hint">Ex. Harry Potter</string>
+    <string name="search_title_label">SEARCH FOR TITILE</string>
+    <string name="search_button">Search</string>
+
 </resources>

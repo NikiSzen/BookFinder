@@ -34,6 +34,8 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
+        Intent intent = getIntent();
+        mySearchKeyword = intent.getExtras().getString("searchKeyword");
 
         // Check if there is internet connectivity.
         ConnectivityManager cm =
